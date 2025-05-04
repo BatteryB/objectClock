@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ok">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>objectClock</title>
+    <style>
+        body {
+            background-color: #2E2E2E;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #clock {
+            --h: 300px;
+            --w: 300px;
+            height: var(--h);
+            width: var(--w);       
+        }
+
+        #clock>div {
+            white-space: pre;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .text {
+            color: white;
+        }
+
+        .key {
+            color: #ADD8E6
+        }
+
+        .value-int {
+            color: #8FBC8F
+        }
+
+        .value-str {
+            color: #FF8C00 
+        }
+
+        .braclet {
+            color: #FFD700;
+        }
+
+        #const {
+            color: #00BFFF;
+        }
+
+        #correntTime {
+            color: #87CEEB;
+        }
+    </style>
+</head>
+<body>
+    <div id="clock">
+        <div>
+<span id="const">const</span> <span id="correntTime">correntTime</span> <span class="text">=</span> <span class="braclet">{</span>
+            <span class="key">year:</span> <span class="value-int" id="year">y</span><span class="text">,</span>
+            <span class="key">month:</span> <span class="value-int" id="month">m</span><span class="text">,</span>
+            <span class="key">day:</span> <span class="value-int" id="day">d</span><span class="text">,</span>
+            <span class="key">dayOfWeek:</span> <span class="value-str">"<span id="week">w</span>"</span><span class="text">,</span>
+            <span class="key">hour:</span> <span class="value-int" id="hour">h</span><span class="text">,</span>
+            <span class="key">minute:</span> <span class="value-int" id="minute">m</span><span class="text">,</span>
+            <span class="key">second:</span> <span class="value-int" id="second">s</span><span class="text">,</span>
+            <span class="key">dayProgress:</span> <span class="value-int" id="progress">p</span>
+<span class="braclet">}</span>
+        </div>
+    </div>
+
+    <script>
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        function getDayProgress() {
+            const startOfDay = new Date(new Date().setHours(0, 0, 0, 0));
+            const dayInMs = 24 * 60 * 60 * 1000;
+            const progressMs = new Date() - startOfDay;
+            return ((progressMs / dayInMs) * 100).toFixed(2);
+        }
+        
+        setInterval(() => {
+            const date = new Date();
+            document.getElementById('year').innerText = date.getFullYear();
+            document.getElementById('month').innerText = date.getMonth()+1;
+            document.getElementById('day').innerText = date.getDate();
+            document.getElementById('week').innerText = days[date.getDay()];
+            document.getElementById('hour').innerText = date.getHours();
+            document.getElementById('minute').innerText = date.getMinutes();
+            document.getElementById('second').innerText = date.getSeconds();
+            document.getElementById('progress').innerText = getDayProgress() + '%';
+        }, 50);
+
+    </script>
+</body>
+</html>
